@@ -3,6 +3,7 @@ package com.pigdroid.twitter.service;
 import java.util.function.Consumer;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import rx.Observable;
 import rx.subjects.PublishSubject;
@@ -13,7 +14,8 @@ import twitter4j.StatusListener;
 import twitter4j.TwitterStream;
 import twitter4j.TwitterStreamFactory;
 
-public class TwitterSubscriptionService {
+@Component
+public class TwitterSubscriptionManager {
 
 	@Autowired
 	private TwitterSubscriptionConfiguration twitterConfiguration;

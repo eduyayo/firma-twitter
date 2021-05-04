@@ -21,7 +21,7 @@ public class TwitterSubscriptionServiceTest extends AbstractMockitoTest {
 	private TwitterSubscriptionConfiguration twitterSubscriptionConfiguration = new TwitterSubscriptionConfiguration();
 
 	@InjectMocks
-	TwitterSubscriptionService sot = new TwitterSubscriptionService();
+	TwitterSubscriptionManager sot = new TwitterSubscriptionManager();
 
 	@Test
 	public void testCanFilterByDefaultLangs() throws Exception {

@@ -5,8 +5,6 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.Entity;
-
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
@@ -23,8 +21,6 @@ import lombok.ToString;
 @Builder
 @AllArgsConstructor
 @ToString
-
-@Entity
 public class TwitterSubscriptionConfiguration {
 
 	@Builder.Default
