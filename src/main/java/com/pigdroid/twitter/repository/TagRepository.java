@@ -4,12 +4,12 @@ import java.util.List;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
 import com.pigdroid.twitter.model.TagCount;
 import com.pigdroid.twitter.model.entity.Tag;
 
-public interface TagRepository extends CrudRepository<Tag, Long> {
+public interface TagRepository extends PagingAndSortingRepository<Tag, Long> {
 
 	@Query("SELECT "
 			+ "new com.pigdroid.twitter.model.TagCount(COUNT(t.value) as amount, t.value as tagName) "
