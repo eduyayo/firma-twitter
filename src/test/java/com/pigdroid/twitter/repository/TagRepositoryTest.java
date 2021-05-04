@@ -9,6 +9,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.pigdroid.twitter.model.TagCount;
@@ -38,7 +40,8 @@ public class TagRepositoryTest {
 		tags.add(Tag.builder().value("r").build());
 		StatusEntry satus = StatusEntry.builder().lang("es").tags(tags).build();
 		statusEntryRepository.save(satus);
-		List<TagCount> found = tagRepository.countTags();
+		Pageable pageable = PageRequest.of(0, 2);
+		List<TagCount> found = tagRepository.countTags(pageable);
 		assertEquals("r", found.get(0).getTagName());
 		assertEquals("t", found.get(1).getTagName());
 		assertEquals(4L, found.get(0).getAmount());

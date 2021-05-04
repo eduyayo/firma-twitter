@@ -44,5 +44,10 @@ public class StatusEntry {
 	@Setter
 	private List<Tag> tags;
 
+	@Getter
+	@Setter
+	private String text;
+
+
 
 }
