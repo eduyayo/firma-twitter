@@ -7,6 +7,9 @@ After done, run as a spring-boot application:
 mvnw spring-boot:run
 ```
 
+In the```/src/main/resources/twitter4j.properties``` the defaults can be tweaked. The application needs to be rebooted.
+
+
 # _Exposed services_
 _http://localhost:8080/tags/rank_
 Lists the most used hashtags.
@@ -34,7 +37,7 @@ Lists the entries of a given user named Bia_ which were NOT validated.
 Sets the validation flag to the status entry 1234
 
 *PUT* _http://localhost:8080/status/invalidate/1234_
-unsets the validation flag to the status entry 1234
+un sets the validation flag to the status entry 1234
 
 
 
