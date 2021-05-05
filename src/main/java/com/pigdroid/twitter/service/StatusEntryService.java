@@ -39,6 +39,7 @@ public class StatusEntryService extends AbstractPagingService<StatusEntry, Long>
 		StatusEntry statusEntry = StatusEntry.builder()
 				.lang(status.getLang())
 				.tags(tags)
+				.text(status.getText())
 				.build();
 		save(statusEntry);
 	}
