@@ -14,7 +14,7 @@ import com.pigdroid.twitter.service.TagService;
 @RestController
 @RequestMapping("/tags")
 //TODO abstract query controllers like the pagination services
-public class JobTemplateQueryController {
+public class TagQueryController {
 
 	@Autowired
 	private TagService tagService;

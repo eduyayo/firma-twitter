@@ -43,4 +43,11 @@ public class StatusEntryService extends AbstractPagingService<StatusEntry, Long>
 		save(statusEntry);
 	}
 
+	public StatusEntry setValidated(long id, boolean validated) {
+		StatusEntry entry = findById(id).orElse(null);
+		entry.setValidated(validated);
+		save(entry);
+		return entry;
+	}
+
 }
