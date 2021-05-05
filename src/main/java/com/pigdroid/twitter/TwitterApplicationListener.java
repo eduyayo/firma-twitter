@@ -7,6 +7,7 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
+import com.pigdroid.twitter.service.StatusEntryService;
 import com.pigdroid.twitter.service.TwitterSubscriptionManager;
 
 @Component
@@ -17,9 +18,13 @@ public class TwitterApplicationListener implements ApplicationListener<Applicati
     @Autowired
     private TwitterSubscriptionManager twitterSubscriptionService;
 
+    @Autowired
+    private StatusEntryService statusEntryService;
+
 	@Override
 	public void onApplicationEvent(ApplicationReadyEvent event) {
 		twitterSubscriptionService.startListening();
+		twitterSubscriptionService.subscribe(statusEntryService::createFrom);
 		LOGGER.info("Startup event done!");
 	}
 

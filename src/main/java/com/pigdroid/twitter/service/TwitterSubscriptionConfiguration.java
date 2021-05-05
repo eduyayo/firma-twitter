@@ -31,5 +31,9 @@ public class TwitterSubscriptionConfiguration {
 	@Getter
 	private int followersThreshold = 1500;
 
+	@Builder.Default
+	@Getter
+	private int maxTagsToShow = 10;
+
 
 }
