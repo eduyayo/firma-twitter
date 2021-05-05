@@ -3,6 +3,7 @@ package com.pigdroid.twitter.model.entity;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -25,6 +26,8 @@ import lombok.ToString;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class StatusEntry {
 
+	public static final int MAX_TEXT_TO_STORE = 500;
+
 	@Id
     @GeneratedValue
     @Getter
@@ -39,6 +42,10 @@ public class StatusEntry {
 	@Setter
 	private boolean validated;
 
+	@Getter
+	@Setter
+	private String userName;
+
 	@OneToMany (cascade = CascadeType.ALL)
 	@Getter
 	@Setter
@@ -46,6 +53,9 @@ public class StatusEntry {
 
 	@Getter
 	@Setter
+	@Column(name = "txt",
+            length = MAX_TEXT_TO_STORE,
+            nullable = false)
 	private String text;
 
 

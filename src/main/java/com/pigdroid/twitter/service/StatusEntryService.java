@@ -21,7 +21,7 @@ import twitter4j.Status;
 @Service
 public class StatusEntryService extends AbstractPagingService<StatusEntry, Long> {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(StatusEntryService.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(StatusEntryService.class);
 
 	@Autowired
 	public StatusEntryService(StatusEntryRepository repo) {
@@ -36,12 +36,18 @@ public class StatusEntryService extends AbstractPagingService<StatusEntry, Long>
 							.value(each)
 							.build()).collect(Collectors.toList());
 		}
+		String truncated = truncate(status.getText());
 		StatusEntry statusEntry = StatusEntry.builder()
 				.lang(status.getLang())
 				.tags(tags)
-				.text(status.getText())
+				.text(truncated)
+				.userName(status.getUser().getName())
 				.build();
 		save(statusEntry);
+	}
+
+	private String truncate(String text) {
+		return text.substring(0, Math.min(text.length(), StatusEntry.MAX_TEXT_TO_STORE));
 	}
 
 	public StatusEntry setValidated(long id, boolean validated) {
@@ -49,6 +55,22 @@ public class StatusEntryService extends AbstractPagingService<StatusEntry, Long>
 		entry.setValidated(validated);
 		save(entry);
 		return entry;
+	}
+
+	//TODO use specs and criteria if it gets more complex or they ask for pagination
+	public Iterable<StatusEntry> find(String userName, Boolean validated) {
+		StatusEntryRepository repo = (StatusEntryRepository) this.getRepository();
+		if (validated != null) {
+			if (userName != null) {
+				return repo.findByUserNameAndValidated(userName, validated);
+			} else {
+				return repo.findByValidated(validated);
+			}
+		} else if (userName != null) {
+			return repo.findByUserName(userName);
+		} else {
+			return repo.findAll();
+		}
 	}
 
 }
