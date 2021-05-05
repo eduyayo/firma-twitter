@@ -38,7 +38,7 @@ public class TagRepositoryTest {
 		tags.add(Tag.builder().value("r").build());
 		tags.add(Tag.builder().value("r").build());
 		tags.add(Tag.builder().value("r").build());
-		StatusEntry satus = StatusEntry.builder().lang("es").tags(tags).build();
+		StatusEntry satus = StatusEntry.builder().lang("es").tags(tags).text("test").build();
 		statusEntryRepository.save(satus);
 		Pageable pageable = PageRequest.of(0, 2);
 		List<TagCount> found = tagRepository.countTags(pageable);

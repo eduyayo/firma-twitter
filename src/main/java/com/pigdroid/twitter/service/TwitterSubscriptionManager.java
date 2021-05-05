@@ -5,8 +5,6 @@ import java.util.function.Consumer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import rx.Observable;
-import rx.subjects.PublishSubject;
 import twitter4j.StallWarning;
 import twitter4j.Status;
 import twitter4j.StatusDeletionNotice;
@@ -22,9 +20,7 @@ public class TwitterSubscriptionManager {
 
 	private TwitterStream twitterStream = null;
 
-	private PublishSubject<Status> subject;
-
-	private Observable<Status> filtered;
+	private Consumer<Status> listener = null;
 
 	public void startListening() {
 		if (this.twitterStream == null) {
@@ -37,13 +33,15 @@ public class TwitterSubscriptionManager {
 	}
 
 	private void createTwitterStream() {
-		this.subject = PublishSubject.create();
-		this.filtered = this.subject.filter(this::isByUser).filter(this::isByLang);
 		this.twitterStream = new TwitterStreamFactory().getInstance().addListener(new StatusListener() {
 
 			@Override
 			public void onStatus(Status status) {
-				subject.onNext(status);
+				if (listener != null) {
+					if (isByUser(status) && isByLang(status)) {
+						listener.accept(status);
+					}
+				}
 			}
 
 			@Override
@@ -70,11 +68,7 @@ public class TwitterSubscriptionManager {
 	}
 
 	public void subscribe(Consumer<Status> consumer) {
-		this.subject.subscribe(consumer::accept);
-	}
-
-	public void subscribeFiltered(Consumer<Status> consumer) {
-		this.filtered.subscribe(consumer::accept);
+		this.listener = consumer;
 	}
 
 	private boolean isByUser(Status status) {
