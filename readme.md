@@ -7,7 +7,7 @@ After done, run as a spring-boot application:
 mvnw spring-boot:run
 ```
 
-In the```/src/main/resources/twitter4j.properties``` the defaults can be tweaked. The application needs to be rebooted.
+In the```/src/main/resources/application.properties``` the defaults can be tweaked. The application needs to be rebooted.
 
 
 # _Exposed services_
